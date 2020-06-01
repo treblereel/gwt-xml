@@ -107,6 +107,7 @@ public class XMLGwtTest {
     Document d = createTestDocument();
     Element de = d.getDocumentElement();
     de.setAttribute("created", "true");
+    assertTrue(de.getAttributes().item(0) instanceof Attr);
     assertEquals("true", de.getAttribute("created"));
     de.setAttribute("set", "toAValue");
     assertEquals(de.getAttribute("set"), "toAValue");

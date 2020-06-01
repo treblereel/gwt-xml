@@ -17,25 +17,16 @@ package org.gwtproject.xml.client.impl;
 
 import org.gwtproject.xml.client.CDATASection;
 
-import jsinterop.annotations.JsPackage;
-import jsinterop.annotations.JsType;
-
-/**
- * This class implements the CDATASectionImpl interface.
- */
+/** This class implements the CDATASectionImpl interface. */
 class CDATASectionImpl extends TextImpl implements CDATASection {
 
-  @JsType(isNative = true, name = "Object", namespace = JsPackage.GLOBAL)
-  static class NativeCDATASectionImpl extends NativeTextImpl {
-  }
-
-  protected CDATASectionImpl(NativeCDATASectionImpl o) {
+  protected CDATASectionImpl(elemental2.dom.CDATASection o) {
     super(o);
   }
 
   /**
-   * This method returns the string representation of this
-   * <code>CDATASectionImpl</code>.
+   * This method returns the string representation of this <code>CDATASectionImpl</code>.
+   *
    * @return the string representation of this <code>CDATASectionImpl</code>.
    * @see java.lang.Object#toString()
    */

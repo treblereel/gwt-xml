@@ -15,6 +15,8 @@
  */
 package org.gwtproject.xml.client;
 
+import static org.junit.Assert.assertEquals;
+
 import com.google.gwt.junit.DoNotRunWith;
 import com.google.gwt.junit.Platform;
 import com.google.gwt.junit.client.GWTTestCase;
@@ -133,6 +135,7 @@ public class XMLGwtTest extends GWTTestCase {
     Document d = createTestDocument();
     Element de = d.getDocumentElement();
     de.setAttribute("created", "true");
+    assertEquals(3, de.getAttributes().getLength());
     assertEquals("true", de.getAttribute("created"));
     de.setAttribute("set", "toAValue");
     assertEquals(de.getAttribute("set"), "toAValue");
@@ -357,8 +360,8 @@ public class XMLGwtTest extends GWTTestCase {
                 + "</bk:book>");
     assertEquals(d.getDocumentElement().getNodeName(), "bk:book");
     assertEquals(d.getDocumentElement().getPrefix(), "bk");
-    assertEquals(d.getElementsByTagName("book").getLength(), 1);
-    assertEquals(d.getElementsByTagName("book").item(0), d.getDocumentElement());
+    assertEquals(1, d.getElementsByTagName("bk:book").getLength());
+    assertEquals(d.getDocumentElement(), d.getElementsByTagName("bk:book").item(0));
   }
 
   public void testProcessingInstruction() {

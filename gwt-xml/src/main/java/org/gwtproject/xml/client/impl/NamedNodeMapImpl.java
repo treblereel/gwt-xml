@@ -1,12 +1,12 @@
 /*
  * Copyright 2007 Google Inc.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
  * the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
@@ -15,37 +15,30 @@
  */
 package org.gwtproject.xml.client.impl;
 
+import jsinterop.base.Js;
 import org.gwtproject.xml.client.DOMException;
 import org.gwtproject.xml.client.NamedNodeMap;
 import org.gwtproject.xml.client.Node;
-import org.gwtproject.xml.client.impl.NodeImpl.NativeNodeImpl;
 
-import jsinterop.annotations.JsPackage;
-import jsinterop.annotations.JsType;
-
-/**
- * This class implements the NamedNodeMap interface.
- */
+/** This class implements the NamedNodeMap interface. */
 class NamedNodeMapImpl extends NodeListImpl implements NamedNodeMap {
 
-  @JsType(isNative = true, name = "Object", namespace = JsPackage.GLOBAL)
-  static class NativeNamedNodeMapImpl  extends NativeNodeListImpl {
-    native NativeNodeImpl getNamedItem(String name);
-    native NativeNodeImpl removeNamedItem(String name);
-    native NativeNodeImpl setNamedItem(NativeDomItem value);
+  private final elemental2.dom.NamedNodeMap nodeMap;
+
+  protected NamedNodeMapImpl(elemental2.dom.NamedNodeMap o) {
+    super(Js.uncheckedCast(o));
+    this.nodeMap = o;
   }
 
-  private final NativeNamedNodeMapImpl nodeMap;
-
-  protected NamedNodeMapImpl(NativeNamedNodeMapImpl o) {
-    super(o);
-    this.nodeMap = o;
+  @Override
+  public int getLength() {
+    return nodeMap.getLength();
   }
 
   /**
    * This method gets the item at the index position.
-   * 
-   * @param name - the name of the item 
+   *
+   * @param name - the name of the item
    * @return the item retrieved from the name
    */
   @Override
@@ -53,26 +46,28 @@ class NamedNodeMapImpl extends NodeListImpl implements NamedNodeMap {
     return NodeImpl.build(nodeMap.getNamedItem(name));
   }
 
-  /**
-   * This function delegates to the native method <code>removeNamedItem</code>
-   * in XMLParserImpl.
-   */
+  @Override
+  public Node item(int index) {
+    return NodeImpl.build(nodeMap.item(index));
+  }
+
+  /** This function delegates to the native method <code>removeNamedItem</code> in XMLParserImpl. */
   public Node removeNamedItem(String name) {
     try {
       return NodeImpl.build(nodeMap.removeNamedItem(name));
     } catch (Exception e) {
-      throw new DOMNodeException(DOMException.INVALID_MODIFICATION_ERR, e, this);
+      throw new DOMNodeException(
+          DOMException.INVALID_MODIFICATION_ERR, e, Js.uncheckedCast(nodeMap));
     }
   }
 
-  /**
-   * This function delegates to the native method <code>setNamedItem</code> in XMLParserImpl.
-   */
+  /** This function delegates to the native method <code>setNamedItem</code> in XMLParserImpl. */
   public Node setNamedItem(Node arg) {
     try {
       return NodeImpl.build(nodeMap.setNamedItem(((NodeImpl) arg).node));
     } catch (Exception e) {
-      throw new DOMNodeException(DOMException.INVALID_MODIFICATION_ERR, e, this);
+      throw new DOMNodeException(
+          DOMException.INVALID_MODIFICATION_ERR, e, Js.uncheckedCast(nodeMap));
     }
   }
 }

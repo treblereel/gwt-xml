@@ -1,12 +1,12 @@
 /*
  * Copyright 2007 Google Inc.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
  * the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
@@ -17,24 +17,16 @@ package org.gwtproject.xml.client.impl;
 
 import org.gwtproject.xml.client.Comment;
 
-import jsinterop.annotations.JsPackage;
-import jsinterop.annotations.JsType;
-
-/**
- * This class implements the Comment interface.
- */
+/** This class implements the Comment interface. */
 class CommentImpl extends CharacterDataImpl implements Comment {
 
-  @JsType(isNative = true, name = "Object", namespace = JsPackage.GLOBAL)
-  static class NativeCommentImpl extends NativeCharacterDataImpl {
-  }
-
-  CommentImpl(NativeCommentImpl o) {
+  CommentImpl(elemental2.dom.Comment o) {
     super(o);
   }
 
   /**
    * This method returns the string representation of this <code>CommentImpl</code>.
+   *
    * @return the string representation of this <code>CommentImpl</code>.
    * @see java.lang.Object#toString()
    */

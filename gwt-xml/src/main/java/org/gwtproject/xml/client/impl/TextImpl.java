@@ -1,12 +1,12 @@
 /*
  * Copyright 2007 Google Inc.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
  * the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
@@ -18,36 +18,23 @@ package org.gwtproject.xml.client.impl;
 import org.gwtproject.xml.client.DOMException;
 import org.gwtproject.xml.client.Text;
 
-import jsinterop.annotations.JsPackage;
-import jsinterop.annotations.JsType;
-
-/**
- * This class is the implementation of the XML DOM Text interface.
- */
+/** This class is the implementation of the XML DOM Text interface. */
 class TextImpl extends CharacterDataImpl implements Text {
 
-  @JsType(isNative = true, name = "Object", namespace = JsPackage.GLOBAL)
-  static class NativeTextImpl extends NativeCharacterDataImpl {
-    native NativeTextImpl splitText(int offset);
-  }
+  protected final elemental2.dom.Text text;
 
-  private final NativeTextImpl text;
-
-  protected TextImpl(NativeTextImpl o) {
+  protected TextImpl(elemental2.dom.Text o) {
     super(o);
     this.text = o;
   }
 
-  /**
-   * This function delegates to the native method <code>splitText</code> in
-   * XMLParserImpl.
-   */
+  /** This function delegates to the native method <code>splitText</code> in XMLParserImpl. */
   @Override
   public Text splitText(int offset) {
     try {
       return (Text) NodeImpl.build(text.splitText(offset));
     } catch (Exception e) {
-      throw new DOMNodeException(DOMException.INVALID_MODIFICATION_ERR, e, this);
+      throw new DOMNodeException(DOMException.INVALID_MODIFICATION_ERR, e, text);
     }
   }
 

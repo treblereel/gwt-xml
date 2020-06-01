@@ -1,12 +1,12 @@
 /*
  * Copyright 2007 Google Inc.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
  * the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
@@ -17,48 +17,17 @@ package org.gwtproject.xml.client.impl;
 
 import org.gwtproject.xml.client.Node;
 import org.gwtproject.xml.client.NodeList;
-import org.gwtproject.xml.client.impl.NodeImpl.NativeNodeImpl;
-
-import jsinterop.annotations.JsPackage;
-import jsinterop.annotations.JsType;
 
 /**
- * This class implements the NodeList interface using the underlying
- * JavaScriptObject's implementation.
+ * This class implements the NodeList interface using the underlying JavaScriptObject's
+ * implementation.
  */
-class NodeListImpl extends DOMItem implements NodeList {
+class NodeListImpl implements NodeList {
 
-  @JsType(isNative = true, name = "Object", namespace = JsPackage.GLOBAL)
-  static class NativeNodeListImpl extends NativeDomItem {
-    int length;
-    public native NativeNodeImpl item(int index);
-  }
+  private final elemental2.dom.NodeList domList;
 
-  private final NativeNodeListImpl domList;
-
-  protected NodeListImpl(NativeNodeListImpl o) {
-    super(o);
+  protected NodeListImpl(elemental2.dom.NodeList o) {
     this.domList = o;
-  }
-
-  @Override
-  public int getLength() {
-    return domList.length;
-  }
-
-  /**
-   * This method gets the index item.
-   * 
-   * @param index - the index to be retrieved
-   * @return the item at this index
-   * @see org.gwtproject.xml.client.NodeList#item(int)
-   */
-  @Override
-  public Node item(int index) {
-    if (index >= domList.length) {
-      return null;
-    }
-    return NodeImpl.build(domList.item(index));
   }
 
   @Override
@@ -68,5 +37,25 @@ class NodeListImpl extends DOMItem implements NodeList {
       b.append(item(i).toString());
     }
     return b.toString();
+  }
+
+  @Override
+  public int getLength() {
+    return domList.length;
+  }
+
+  /**
+   * This method gets the index item.
+   *
+   * @param index - the index to be retrieved
+   * @return the item at this index
+   * @see org.gwtproject.xml.client.NodeList#item(int)
+   */
+  @Override
+  public Node item(int index) {
+    if (index >= domList.length) {
+      return null;
+    }
+    return NodeImpl.build((elemental2.dom.Node) domList.item(index));
   }
 }
